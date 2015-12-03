@@ -30,7 +30,7 @@ $pool->save($cacheItem);
 
 #### To use the Doctrine Bridge:
 
-Note: This allows you to use an instance of the Doctrine\Common\Cache\Cache interface, while being PSR-6 compliant 
+Note: This allows you to use an instance of the `Doctrine\Common\Cache\Cache` interface, while being PSR-6 compliant 
 
 Notice, no cache pool is created by the user. That is handled by [`DoctrineBridge`](src/DoctrineCacheBridge.php)
 ```php
