@@ -1,5 +1,5 @@
 {
-    "name":         "aequasi/cache",
+    "name":         "aequasi/psr-6-doctrine-bridge",
     "type":         "library",
     "description":  "PSR-6 Implementation, including a doctrine bridge",
     "keywords":     [
