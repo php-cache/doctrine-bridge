@@ -7,15 +7,17 @@ To use the doctrine bridge, follow the instructions below, in the Usage section.
 
 ## Installation
 
-##### Todo
-
-## Usage
-
 #### Composer
 
 Download composer using `curl -sS https://getcomposer.org/installer | php`
 
-Run `composer require aequasi/psr-6-doctrine-bridge`.
+Run the following:
+
+```sh
+$ composer require aequasi/psr-6-doctrine-bridge`
+```
+
+## Usage
 
 #### To use the cache pool
 
