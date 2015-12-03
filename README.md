@@ -10,8 +10,13 @@ This library provides a bridge between Doctrine, and a PSR-6 compliant cache imp
 
 ## Usage
 
+
+
+To use the Doctrine Bridge:
+Notice, no cache pool is created by the user. That is handled by `DoctrineBridge`
 ```php
 use Aequasi\DoctrineBridge\DoctrineBridge;
+use Doctrine\Common\Cache\RedisCache;
 
 $predisClient = new Predis();
 $cache = new RedisCache($predisClient)
