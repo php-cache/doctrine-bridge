@@ -88,4 +88,12 @@ class DoctrineCacheBridge implements Cache
     {
         return [];
     }
+
+    /**
+     * @return CachePool
+     */
+    public function getCachePool()
+    {
+        return $this->cachePool;
+    }
 }
