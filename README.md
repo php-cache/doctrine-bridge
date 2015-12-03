@@ -34,7 +34,6 @@ Note: This allows you to use an instance of the `Doctrine\Common\Cache\Cache` in
 This is useful for projects that require an implementation of `Doctrine\Common\Cache\Cache`, but you still wan't to use
 PSR-6
 
-Notice, no cache pool is created by the user. That is handled by [`DoctrineBridge`](src/DoctrineCacheBridge.php)
 ```php
 use Aequasi\Cache\DoctrineBridge;
 use Doctrine\Common\Cache\RedisCache;
