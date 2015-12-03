@@ -14,7 +14,7 @@ Download composer using `curl -sS https://getcomposer.org/installer | php`
 Run the following:
 
 ```sh
-$ composer require aequasi/psr-6-doctrine-bridge`
+$ composer require aequasi/psr-6-doctrine-bridge
 ```
 
 ## Usage
