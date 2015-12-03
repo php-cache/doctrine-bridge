@@ -11,7 +11,6 @@
 
 namespace Aequasi\Cache;
 
-use Aequasi\Bundle\CacheBundle\Exception\InvalidArgumentException;
 use Psr\Cache\CacheItemInterface;
 
 /**
@@ -38,8 +37,6 @@ class CacheItem implements CacheItemInterface
      * CacheItem constructor.
      *
      * @param string $key
-     *
-     * @throws InvalidArgumentException
      */
     public function __construct($key)
     {

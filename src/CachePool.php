@@ -11,8 +11,7 @@
 
 namespace Aequasi\Cache;
 
-use Aequasi\Bundle\CacheBundle\Exception\BadMethodCallException;
-use Aequasi\Bundle\CacheBundle\Exception\InvalidArgumentException;
+use Aequasi\Cache\Exception\InvalidArgumentException;
 use Doctrine\Common\Cache\Cache;
 use Doctrine\Common\Cache\FlushableCache;
 use Psr\Cache\CacheItemInterface;
