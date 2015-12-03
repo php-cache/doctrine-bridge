@@ -18,8 +18,8 @@ use Aequasi\Cache\CachePool;
 use Doctrine\Common\Cache\RedisCache;
 
 $predisClient = new Predis();
-$cache = new RedisCache($predisClient)
-$pool = new CachePool($cache);
+$cache        = new RedisCache($predisClient);
+$pool         = new CachePool($cache);
 
 $pool->getItem($key);
 $pool->hasItem($key);
@@ -30,16 +30,19 @@ $pool->save($cacheItem);
 
 #### To use the Doctrine Bridge:
 
-Note: This allows you to use an instance of the `Doctrine\Common\Cache\Cache` interface, while being PSR-6 compliant 
+Note: This allows you to use an instance of the `Doctrine\Common\Cache\Cache` interface, while being PSR-6 compliant. 
+This is useful for projects that require an implementation of `Doctrine\Common\Cache\Cache`, but you still wan't to use
+PSR-6
 
 Notice, no cache pool is created by the user. That is handled by [`DoctrineBridge`](src/DoctrineCacheBridge.php)
 ```php
 use Aequasi\Cache\DoctrineBridge;
 use Doctrine\Common\Cache\RedisCache;
 
-$predisClient = new Predis();
-$cache = new RedisCache($predisClient)
-$cacheProvider = new DoctrineBridge($cache);
+$predisClient  = new Predis();
+$cache         = new RedisCache($predisClient);
+$pool          = new CachePool($cache);
+$cacheProvider = new DoctrineBridge($pool);
 
 $cacheProvider->contains($key);
 $cacheProvider->fetch($key);
