@@ -1,4 +1,4 @@
-# psr-6-doctrine-bridge
+# PSR 6 Doctrine Bridge
 PSR-6 Compliant Doctrine Bridge
 
 This library provides a PSR-6 compliant cache implementation, and it also provides a bridge between Doctrine, and the Cache Pool
