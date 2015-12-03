@@ -9,7 +9,7 @@
  * with this source code in the file LICENSE
  */
 
-namespace Aequasi\Bundle\CacheBundle\Exception;
+namespace Aequasi\Cache\Exception;
 
 /**
  * @author Aaron Scherer <aequasi@gmail.com>

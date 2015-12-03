@@ -11,12 +11,11 @@ This library provides a bridge between Doctrine, and a PSR-6 compliant cache imp
 ## Usage
 
 ```php
-use Aequasi\Cache\CachePool;
 use Aequasi\DoctrineBridge\DoctrineBridge;
 
 $predisClient = new Predis();
 $cache = new RedisCache($predisClient)
-$cacheProvider = new DoctrineBridge(new CachePool($cache));
+$cacheProvider = new DoctrineBridge($cache);
 
 $cacheProvider->contains($key);
 $cacheProvider->fetch($key);

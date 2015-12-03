@@ -26,11 +26,11 @@ class DoctrineCacheBridge implements Cache
     /**
      * DoctrineCacheBridge constructor.
      *
-     * @param CachePool $cachePool
+     * @param Cache $cache
      */
-    public function __construct(CachePool $cachePool)
+    public function __construct(Cache $cache)
     {
-        $this->cachePool = $cachePool;
+        $this->cachePool = new CachePool($cachePool);
     }
 
     /**
