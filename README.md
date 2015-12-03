@@ -17,7 +17,7 @@ To use the doctrine bridge, follow the instructions below, in the Usage section.
 use Aequasi\Cache\CachePool;
 use Doctrine\Common\Cache\RedisCache;
 
-$predisClient = new Predis();
+$predisClient = new \Predis\Client();
 $cache        = new RedisCache($predisClient);
 $pool         = new CachePool($cache);
 
@@ -35,10 +35,11 @@ This is useful for projects that require an implementation of `Doctrine\Common\C
 PSR-6
 
 ```php
+use Aequasi\Cache\CachePool;
 use Aequasi\Cache\DoctrineBridge;
 use Doctrine\Common\Cache\RedisCache;
 
-$predisClient  = new Predis();
+$predisClient  = new \Predis\Client();
 $cache         = new RedisCache($predisClient);
 $pool          = new CachePool($cache);
 $cacheProvider = new DoctrineBridge($pool);
