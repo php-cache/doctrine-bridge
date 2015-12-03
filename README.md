@@ -48,4 +48,7 @@ $cacheProvider->contains($key);
 $cacheProvider->fetch($key);
 $cacheProvider->save($key, $value, $ttl);
 $cacheProvider->delete($key);
+
+// Also, if you need it:
+$cacheProvider->getPool(); // same as $pool
 ```
