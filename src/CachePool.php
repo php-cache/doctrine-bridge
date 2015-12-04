@@ -160,4 +160,12 @@ class CachePool implements CacheItemPoolInterface
 
         return $saved;
     }
+
+    /**
+     * @return Cache
+     */
+    public function getCache()
+    {
+        return $this->cache;
+    }
 }

@@ -12,6 +12,7 @@
 namespace Aequasi\Cache;
 
 use Doctrine\Common\Cache\Cache;
+use Psr\Cache\CacheItemPoolInterface;
 
 /**
  * @author Aaron Scherer <aequasi@gmail.com>
@@ -26,9 +27,9 @@ class DoctrineCacheBridge implements Cache
     /**
      * DoctrineCacheBridge constructor.
      *
-     * @param CachePool $cachePool
+     * @param CacheItemPoolInterface $cachePool
      */
-    public function __construct(CachePool $cachePool)
+    public function __construct(CacheItemPoolInterface $cachePool)
     {
         $this->cachePool = $cachePool;
     }
