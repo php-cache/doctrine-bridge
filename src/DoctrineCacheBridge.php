@@ -64,11 +64,7 @@ class DoctrineCacheBridge implements Cache
      */
     public function save($id, $data, $lifeTime = 0)
     {
-        $cacheItem = new CacheItem($id);
-        $cacheItem->set($data);
-        $cacheItem->expiresAfter($lifeTime === 0 ? null : $lifeTime);
-
-        return $this->cachePool->save($cacheItem);
+        return $this->cachePool->saveItem($id, $data, $lifeTime === 0 ? null : $lifeTime);
     }
 
     /**

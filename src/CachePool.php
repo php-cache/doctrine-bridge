@@ -128,6 +128,15 @@ class CachePool implements CacheItemPoolInterface
         );
     }
 
+    public function saveItem($key, $value, $ttl = null)
+    {
+        if ($ttl !== null) {
+            $ttl = new \DateTime(strtotime('now +'.$ttl));
+        }
+
+        return $this->save($this->createItem($key, $value, $ttl));
+    }
+
     /**
      * @param string                  $key
      * @param mixed                   $value
