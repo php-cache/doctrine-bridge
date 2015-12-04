@@ -53,13 +53,7 @@ class CachePool implements CacheItemPoolInterface
 
         $data = $this->cache->fetch($key);
 
-        $item = new CacheItem($key);
-        $item->set($data['value']);
-        if ($data['expiration'] !== null) {
-            $item->expiresAt(new \DateTime($data['expiration']));
-        }
-
-        return $item;
+        return $this->createItem($key, $data['value'], $data['expiration']);
     }
 
     /**
@@ -132,6 +126,22 @@ class CachePool implements CacheItemPoolInterface
             $item->getKey(),
             ['value' => $item->get(), 'expiration' => $item->getExpirationDate()]
         );
+    }
+
+    /**
+     * @param string                  $key
+     * @param mixed                   $value
+     * @param \DateTimeInterface|null $ttl
+     *
+     * @return CacheItem
+     */
+    public function createItem($key, $value, \DateTimeInterface $ttl = null)
+    {
+        $item = new CacheItem($key);
+        $item->set($value);
+        $item->expiresAt($ttl);
+
+        return $item;
     }
 
     /**

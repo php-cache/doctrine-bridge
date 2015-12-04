@@ -87,6 +87,10 @@ class DoctrineCacheBridge implements Cache
      */
     public function getStats()
     {
+        if (method_exists($this->cachePool->getCache(), 'getStats')) {
+            return $this->cachePool->getCache()->getStats();
+        }
+
         return [];
     }
 
