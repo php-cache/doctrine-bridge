@@ -1,7 +1,7 @@
 {
     "name":         "aequasi/psr-6-doctrine-bridge",
     "type":         "library",
-    "description":  "PSR-6 Implementation, including a doctrine bridge",
+    "description":  "PSR-6 Doctrine bridge",
     "keywords":     [
         "php",
         "cache",
