@@ -23,7 +23,7 @@
         "email": "aequasi@gmail.com"
     },
     "require":      {
-        "php":            ">=5.6,<7.1",
+        "php":            "^5.5|^7.0",
         "doctrine/cache": "~1.3",
         "psr/cache":      "dev-master"
     },
@@ -34,7 +34,7 @@
         }
     ],
     "require-dev":  {
-        "phpunit/phpunit": "~5.1"
+        "phpunit/phpunit": "^5.1|^4.0"
     },
     "autoload":     {
         "psr-4": {
