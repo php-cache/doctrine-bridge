@@ -20,7 +20,7 @@ use Psr\Cache\CacheItemPoolInterface;
 class DoctrineCacheBridge implements Cache
 {
     /**
-     * @type CachePool
+     * @type CacheItemPoolInterface
      */
     private $cachePool;
 
@@ -37,8 +37,7 @@ class DoctrineCacheBridge implements Cache
     /**
      * @param string $id
      *
-     * @return CacheItem|\Psr\Cache\CacheItemInterface
-     * @throws Exception\InvalidArgumentException
+     * @return \Psr\Cache\CacheItemInterface
      */
     public function fetch($id)
     {
@@ -60,18 +59,24 @@ class DoctrineCacheBridge implements Cache
      * @param mixed  $data
      * @param int    $lifeTime
      *
-     * @return bool|void
+     * @return bool
      */
     public function save($id, $data, $lifeTime = 0)
     {
-        return $this->cachePool->saveItem($id, $data, $lifeTime === 0 ? null : $lifeTime);
+        $item = $this->cachePool->getItem($id);
+        $item->set($data);
+
+        if ($lifeTime !== 0) {
+            $item->expiresAfter($lifeTime);
+        }
+
+        return $this->cachePool->save($item);
     }
 
     /**
      * @param string $id
      *
      * @return bool
-     * @throws Exception\InvalidArgumentException
      */
     public function delete($id)
     {
@@ -79,22 +84,18 @@ class DoctrineCacheBridge implements Cache
     }
 
     /**
-     * @return array
-     */
-    public function getStats()
-    {
-        if (method_exists($this->cachePool->getCache(), 'getStats')) {
-            return $this->cachePool->getCache()->getStats();
-        }
-
-        return [];
-    }
-
-    /**
-     * @return CachePool
+     * @return CacheItemPoolInterface
      */
     public function getCachePool()
     {
         return $this->cachePool;
+    }
+
+    /**
+     * {@inheritDoc}}
+     */
+    public function getStats()
+    {
+        // Not possible, as of yet
     }
 }
