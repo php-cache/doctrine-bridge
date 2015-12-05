@@ -13,5 +13,8 @@ class CacheItemTest extends \PHPUnit_Framework_TestCase
 
         $item->set('foobar');
         $this->assertTrue($item->isHit());
+
+        $item->set(null);
+        $this->assertTrue($item->isHit());
     }
 }
