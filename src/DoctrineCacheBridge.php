@@ -15,6 +15,8 @@ use Doctrine\Common\Cache\Cache;
 use Psr\Cache\CacheItemPoolInterface;
 
 /**
+ * This is a bridge between a Doctrine cache and PSR6.
+ *
  * @author Aaron Scherer <aequasi@gmail.com>
  */
 class DoctrineCacheBridge implements Cache
