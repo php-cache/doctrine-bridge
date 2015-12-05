@@ -55,6 +55,9 @@ class DoctrineCacheBridge implements Cache
     }
 
     /**
+     * This function purposefully does not set the item expiration,
+     * if the passed value for $lifeTime is 0 (or defaulted)
+     *
      * @param string $id
      * @param mixed  $data
      * @param int    $lifeTime
