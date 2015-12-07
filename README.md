@@ -1,4 +1,4 @@
-# PSR 6 Doctrine Bridge
+# PSR 6 Doctrine Bridge [![Build Status](https://travis-ci.org/php-cache/doctrine-bridge.svg)](https://travis-ci.org/php-cache/doctrine-bridge)
 PSR-6 Compliant Doctrine Bridge
 
 This library provides a PSR-6 compliant bridge between Doctrine, and a Cache Pool. The bridge implements the 
