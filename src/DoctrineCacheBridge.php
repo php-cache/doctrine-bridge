@@ -22,7 +22,7 @@ use Psr\Cache\CacheItemPoolInterface;
 class DoctrineCacheBridge implements Cache
 {
     /**
-     * @type CacheItemPoolInterface
+     * @var CacheItemPoolInterface
      */
     private $cachePool;
 
@@ -58,7 +58,7 @@ class DoctrineCacheBridge implements Cache
 
     /**
      * This function purposefully does not set the item expiration,
-     * if the passed value for $lifeTime is 0 (or defaulted)
+     * if the passed value for $lifeTime is 0 (or defaulted).
      *
      * @param string $id
      * @param mixed  $data
@@ -97,7 +97,7 @@ class DoctrineCacheBridge implements Cache
     }
 
     /**
-     * {@inheritDoc}}
+     * {@inheritdoc}
      */
     public function getStats()
     {
