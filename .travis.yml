@@ -8,9 +8,15 @@ matrix:
 
 sudo: false
 
+before_install:
+    - pip install --user codecov
+
 before_script:
     - composer self-update
     - composer install --dev --prefer-source --no-interaction
 
 script:
     - php vendor/bin/phpunit
+
+after_succes:
+    - codecov
