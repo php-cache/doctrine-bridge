@@ -12,11 +12,12 @@ before_install:
     - pip install --user codecov
 
 before_script:
+    - phpenv config-rm xdebug.ini
     - composer self-update
     - composer install --dev --prefer-source --no-interaction
 
 script:
-    - php vendor/bin/phpunit
+    - php -dzend_extension=xdebug.so vendor/bin/phpunit
 
 after_success:
     - codecov
