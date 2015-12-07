@@ -13,11 +13,11 @@ before_install:
 
 before_script:
     - phpenv config-rm xdebug.ini
-    - composer self-update
-    - composer install --dev --prefer-source --no-interaction
+    - travis_retry composer self-update
+    - travis_retry composer install --dev --prefer-source --no-interaction
 
 script:
-    - php -dzend_extension=xdebug.so vendor/bin/phpunit
+    - php -dzend_extension=xdebug.so vendor/bin/phpunit --coverage-clover=coverage.xml
 
 after_success:
     - codecov
