@@ -9,12 +9,12 @@ matrix:
 sudo: false
 
 before_install:
+    - phpenv config-rm xdebug.ini
     - pip install --user codecov
 
 before_script:
-    - phpenv config-rm xdebug.ini
     - travis_retry composer self-update
-    - travis_retry composer install --dev --prefer-source --no-interaction
+    - travis_retry composer install --prefer-source --no-interaction
 
 script:
     - php -dzend_extension=xdebug.so vendor/bin/phpunit --coverage-clover=coverage.xml
