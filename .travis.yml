@@ -18,5 +18,5 @@ before_script:
 script:
     - php vendor/bin/phpunit
 
-after_succes:
+after_success:
     - codecov
