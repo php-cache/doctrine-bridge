@@ -2,7 +2,11 @@
     "name":         "cache/psr-6-doctrine-bridge",
     "type":         "library",
     "description":  "PSR-6 Doctrine bridge",
-    "keywords":     ["cache", "psr-6", "doctrine"],
+    "keywords":     [
+        "cache",
+        "psr-6",
+        "doctrine"
+    ],
     "homepage":     "https://github.com/php-cache/doctrine-bridge",
     "license":      "MIT",
     "authors":      [
@@ -24,7 +28,8 @@
         }
     ],
     "require-dev":  {
-        "phpunit/phpunit": "^5.1|^4.0"
+        "phpunit/phpunit": "^5.1|^4.0",
+        "mockery/mockery": "^0.9.4"
     },
     "autoload":     {
         "psr-4": {
