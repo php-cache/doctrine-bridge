@@ -9,7 +9,7 @@
  * with this source code in the file LICENSE
  */
 
-namespace Aequasi\Cache\Tests;
+namespace Cache\Bridge\Tests;
 
 use Cache\Bridge\DoctrineCacheBridge;
 use Mockery as m;

@@ -29,5 +29,10 @@
         "psr-4": {
             "Cache\\Bridge\\": "src/"
         }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Cache\\Bridge\\Tests\\": "tests/"
+        }
     }
 }
