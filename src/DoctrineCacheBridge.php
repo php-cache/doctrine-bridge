@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of php-cache\cache-bundle package.
+ * This file is part of php-cache\doctrine-bridge package.
  *
  * (c) 2015-2015 Aaron Scherer <aequasi@gmail.com>
  *
@@ -22,7 +22,7 @@ use Psr\Cache\CacheItemPoolInterface;
 class DoctrineCacheBridge implements Cache
 {
     /**
-     * @var CacheItemPoolInterface
+     * @type CacheItemPoolInterface
      */
     private $cachePool;
 
