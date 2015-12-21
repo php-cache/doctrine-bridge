@@ -53,13 +53,21 @@ class DoctrineCacheBridgeTest extends \PHPUnit_Framework_TestCase
 
     public function testFetch()
     {
-        $this->itemMock->shouldReceive('get')->times(2)->andReturn(null, 'some_value');
+        $this->itemMock->shouldReceive('isHit')->times(1)->andReturn(true);
+        $this->itemMock->shouldReceive('get')->times(1)->andReturn('some_value');
 
-        $this->mock->shouldReceive('getItem')->withArgs(['no_item'])->andReturn($this->itemMock);
         $this->mock->shouldReceive('getItem')->withArgs(['some_item'])->andReturn($this->itemMock);
 
-        $this->assertEmpty($this->bridge->fetch('no_item'));
         $this->assertEquals('some_value', $this->bridge->fetch('some_item'));
+    }
+
+    public function testFetchMiss()
+    {
+        $this->itemMock->shouldReceive('isHit')->times(1)->andReturn(false);
+
+        $this->mock->shouldReceive('getItem')->withArgs(['no_item'])->andReturn($this->itemMock);
+
+        $this->assertFalse($this->bridge->fetch('no_item'));
     }
 
     public function testContains()

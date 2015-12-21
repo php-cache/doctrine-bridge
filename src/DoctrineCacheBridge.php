@@ -43,7 +43,13 @@ class DoctrineCacheBridge implements Cache
      */
     public function fetch($id)
     {
-        return $this->cachePool->getItem($id)->get();
+        $item = $this->cachePool->getItem($id);
+
+        if ($item->isHit()) {
+            return $item->get();
+        }
+
+        return false;
     }
 
     /**
