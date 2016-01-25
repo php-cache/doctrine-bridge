@@ -12,6 +12,7 @@
 namespace Cache\Bridge;
 
 use Doctrine\Common\Cache\Cache;
+use Doctrine\Common\Cache\CacheProvider;
 use Psr\Cache\CacheItemPoolInterface;
 
 /**
@@ -19,7 +20,7 @@ use Psr\Cache\CacheItemPoolInterface;
  *
  * @author Aaron Scherer <aequasi@gmail.com>
  */
-class DoctrineCacheBridge implements Cache
+class DoctrineCacheBridge extends CacheProvider
 {
     /**
      * @type CacheItemPoolInterface
@@ -37,11 +38,21 @@ class DoctrineCacheBridge implements Cache
     }
 
     /**
-     * @param string $id
-     *
-     * @return \Psr\Cache\CacheItemInterface
+     * @return CacheItemPoolInterface
      */
-    public function fetch($id)
+    public function getCachePool()
+    {
+        return $this->cachePool;
+    }
+
+    /**
+     * Fetches an entry from the cache.
+     *
+     * @param string $id The id of the cache entry to fetch.
+     *
+     * @return mixed|false The cached data or FALSE, if no cache entry exists for the given id.
+     */
+    protected function doFetch($id)
     {
         $item = $this->cachePool->getItem($id);
 
@@ -53,26 +64,28 @@ class DoctrineCacheBridge implements Cache
     }
 
     /**
-     * @param string $id
+     * Tests if an entry exists in the cache.
      *
-     * @return bool
+     * @param string $id The cache id of the entry to check for.
+     *
+     * @return bool TRUE if a cache entry exists for the given cache id, FALSE otherwise.
      */
-    public function contains($id)
+    protected function doContains($id)
     {
         return $this->cachePool->hasItem($id);
     }
 
     /**
-     * This function purposefully does not set the item expiration,
-     * if the passed value for $lifeTime is 0 (or defaulted).
+     * Puts data into the cache.
      *
-     * @param string $id
-     * @param mixed  $data
-     * @param int    $lifeTime
+     * @param string $id         The cache id.
+     * @param string $data       The cache entry/data.
+     * @param int    $lifeTime   The lifetime. If != 0, sets a specific lifetime for this
+     *                           cache entry (0 => infinite lifeTime).
      *
-     * @return bool
+     * @return bool TRUE if the entry was successfully stored in the cache, FALSE otherwise.
      */
-    public function save($id, $data, $lifeTime = 0)
+    protected function doSave($id, $data, $lifeTime = 0)
     {
         $item = $this->cachePool->getItem($id);
         $item->set($data);
@@ -85,27 +98,35 @@ class DoctrineCacheBridge implements Cache
     }
 
     /**
-     * @param string $id
+     * Deletes a cache entry.
      *
-     * @return bool
+     * @param string $id The cache id.
+     *
+     * @return bool TRUE if the cache entry was successfully deleted, FALSE otherwise.
      */
-    public function delete($id)
+    protected function doDelete($id)
     {
         return $this->cachePool->deleteItem($id);
     }
 
     /**
-     * @return CacheItemPoolInterface
+     * Flushes all cache entries.
+     *
+     * @return bool TRUE if the cache entries were successfully flushed, FALSE otherwise.
      */
-    public function getCachePool()
+    protected function doFlush()
     {
-        return $this->cachePool;
+        $this->cachePool->clear();
     }
 
     /**
-     * {@inheritdoc}
+     * Retrieves cached information from the data store.
+     *
+     * @since 2.2
+     *
+     * @return array|null An associative array with server's statistics if available, NULL otherwise.
      */
-    public function getStats()
+    protected function doGetStats()
     {
         // Not possible, as of yet
     }
