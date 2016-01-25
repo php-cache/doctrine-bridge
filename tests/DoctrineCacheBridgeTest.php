@@ -40,7 +40,12 @@ class DoctrineCacheBridgeTest extends \PHPUnit_Framework_TestCase
     {
         parent::setUp();
 
-        $this->mock   = m::mock(CacheItemPoolInterface::class);
+        $this->mock = m::mock(CacheItemPoolInterface::class);
+
+        $itemMock = m::mock(CacheItemInterface::class);
+        $itemMock->shouldReceive('isHit')->andReturn(false);
+        $this->mock->shouldReceive('getItem')->withArgs(['DoctrineNamespaceCacheKey[]'])->andReturn($itemMock);
+
         $this->bridge = new DoctrineCacheBridge($this->mock);
 
         $this->itemMock = m::mock(CacheItemInterface::class);
@@ -56,7 +61,7 @@ class DoctrineCacheBridgeTest extends \PHPUnit_Framework_TestCase
         $this->itemMock->shouldReceive('isHit')->times(1)->andReturn(true);
         $this->itemMock->shouldReceive('get')->times(1)->andReturn('some_value');
 
-        $this->mock->shouldReceive('getItem')->withArgs(['some_item'])->andReturn($this->itemMock);
+        $this->mock->shouldReceive('getItem')->withArgs(['[some_item][1]'])->andReturn($this->itemMock);
 
         $this->assertEquals('some_value', $this->bridge->fetch('some_item'));
     }
@@ -65,15 +70,15 @@ class DoctrineCacheBridgeTest extends \PHPUnit_Framework_TestCase
     {
         $this->itemMock->shouldReceive('isHit')->times(1)->andReturn(false);
 
-        $this->mock->shouldReceive('getItem')->withArgs(['no_item'])->andReturn($this->itemMock);
+        $this->mock->shouldReceive('getItem')->withArgs(['[no_item][1]'])->andReturn($this->itemMock);
 
         $this->assertFalse($this->bridge->fetch('no_item'));
     }
 
     public function testContains()
     {
-        $this->mock->shouldReceive('hasItem')->withArgs(['no_item'])->andReturn(false);
-        $this->mock->shouldReceive('hasItem')->withArgs(['some_item'])->andReturn(true);
+        $this->mock->shouldReceive('hasItem')->withArgs(['[no_item][1]'])->andReturn(false);
+        $this->mock->shouldReceive('hasItem')->withArgs(['[some_item][1]'])->andReturn(true);
 
         $this->assertFalse($this->bridge->contains('no_item'));
         $this->assertTrue($this->bridge->contains('some_item'));
@@ -83,7 +88,7 @@ class DoctrineCacheBridgeTest extends \PHPUnit_Framework_TestCase
     {
         $this->itemMock->shouldReceive('set')->twice()->with('dummy_data');
         $this->itemMock->shouldReceive('expiresAfter')->once()->with(2);
-        $this->mock->shouldReceive('getItem')->twice()->with('some_item')->andReturn($this->itemMock);
+        $this->mock->shouldReceive('getItem')->twice()->with('[some_item][1]')->andReturn($this->itemMock);
         $this->mock->shouldReceive('save')->twice()->with($this->itemMock)->andReturn(true);
 
         $this->assertTrue($this->bridge->save('some_item', 'dummy_data'));
@@ -92,7 +97,7 @@ class DoctrineCacheBridgeTest extends \PHPUnit_Framework_TestCase
 
     public function testDelete()
     {
-        $this->mock->shouldReceive('deleteItem')->once()->with('some_item')->andReturn(true);
+        $this->mock->shouldReceive('deleteItem')->once()->with('[some_item][1]')->andReturn(true);
 
         $this->assertTrue($this->bridge->delete('some_item'));
     }
