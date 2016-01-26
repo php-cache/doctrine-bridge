@@ -54,7 +54,7 @@ class DoctrineCacheBridge extends CacheProvider
      */
     protected function doFetch($id)
     {
-        $item = $this->cachePool->getItem($id);
+        $item = $this->cachePool->getItem($this->normalizeKey($id));
 
         if ($item->isHit()) {
             return $item->get();
@@ -72,7 +72,7 @@ class DoctrineCacheBridge extends CacheProvider
      */
     protected function doContains($id)
     {
-        return $this->cachePool->hasItem($id);
+        return $this->cachePool->hasItem($this->normalizeKey($id));
     }
 
     /**
@@ -87,7 +87,7 @@ class DoctrineCacheBridge extends CacheProvider
      */
     protected function doSave($id, $data, $lifeTime = 0)
     {
-        $item = $this->cachePool->getItem($id);
+        $item = $this->cachePool->getItem($this->normalizeKey($id));
         $item->set($data);
 
         if ($lifeTime !== 0) {
@@ -106,7 +106,7 @@ class DoctrineCacheBridge extends CacheProvider
      */
     protected function doDelete($id)
     {
-        return $this->cachePool->deleteItem($id);
+        return $this->cachePool->deleteItem($this->normalizeKey($id));
     }
 
     /**
@@ -129,5 +129,21 @@ class DoctrineCacheBridge extends CacheProvider
     protected function doGetStats()
     {
         // Not possible, as of yet
+    }
+
+    /**
+     * We need to make sure we do not use any characters not supported.
+     *
+     * @param string $key
+     *
+     * @return string
+     */
+    private function normalizeKey($key)
+    {
+        if (preg_match('|[\{\}\(\)/\\\@\:]|', $key)) {
+            return preg_replace('|[\{\}\(\)/\\\@\:]|', '_', $key);
+        }
+
+        return $key;
     }
 }
